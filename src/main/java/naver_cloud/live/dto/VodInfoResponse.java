@@ -10,6 +10,5 @@ import lombok.Setter;
 public class VodInfoResponse {
     String vodId;
     String name;
-    String thumbnailUrl;
-    Boolean isActive;
+    String vodUrl;
 }

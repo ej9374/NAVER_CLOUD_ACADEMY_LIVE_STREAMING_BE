@@ -13,15 +13,15 @@ public class Channel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column
     private String channelId;
 
-    @Column(unique = true, nullable = false)
+    @Column
     private String edgeDomain;
 
-    @Column(unique = true, nullable = false)
+    @Column
     private String channelName;
 
-    @Column(nullable = false)
+    @Column
     private Boolean isActive;
 }

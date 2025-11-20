@@ -59,7 +59,7 @@ public class LiveController {
     public ResponseEntity<SuccessResponse<LiveResponse>> liveVideo(
             @RequestParam String channelId,
             @RequestParam QualityType qualityType
-            ){
+    ){
         LiveResponse response = liveService.getLiveVideoUrl(channelId, qualityType);
         return SuccessResponse.onSuccess("해당 화질의 링크를 조회했습니다.",HttpStatus.OK, response);
     }

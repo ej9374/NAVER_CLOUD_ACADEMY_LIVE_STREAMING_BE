@@ -1,12 +1,14 @@
 package naver_cloud.live.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class VodUrl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,10 +18,11 @@ public class VodUrl {
     @JoinColumn
     private Vod vod;
 
-    @Column
-    private String vodUrl;
-
     @Enumerated(EnumType.STRING)
     @Column
     private QualityType qualityType;
+    // 720p, 480p
+
+    @Column
+    private String url;
 }

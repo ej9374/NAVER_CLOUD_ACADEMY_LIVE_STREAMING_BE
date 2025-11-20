@@ -40,12 +40,11 @@ public class LiveService {
 
     public List<LiveInfoResponse> getLiveInfo() {
         List<Channel> channels = channelRepository.findByIsActive(true);
-
         return channels.stream()
                 .map(c -> LiveInfoResponse.builder()
                         .channelId(c.getChannelId())
                         .name(c.getChannelName())
-                        .thumbnailUrl((thumbnailRepository.findByChannel_IdAndThumbnailType(c.getId(), ThumbnailType.ORIGIN).getUrl()))
+                        .thumbnailUrl(thumbnailRepository.findByChannel_IdAndThumbnailType(c.getId(), ThumbnailType.ORIGIN).getUrl())
                         .isActive(c.getIsActive())
                         .build())
                 .toList();
