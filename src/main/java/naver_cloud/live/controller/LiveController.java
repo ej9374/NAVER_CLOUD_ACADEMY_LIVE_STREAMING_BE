@@ -1,6 +1,7 @@
 package naver_cloud.live.controller;
 
 import lombok.RequiredArgsConstructor;
+import naver_cloud.live.dto.ChannelListResponse;
 import naver_cloud.live.dto.LiveInfoResponse;
 import naver_cloud.live.dto.LiveResponse;
 import naver_cloud.live.entity.QualityType;
@@ -18,6 +19,15 @@ import java.util.List;
 public class LiveController {
 
     private final LiveService liveService;
+
+    /**
+     * 관리자용 - 저장된 채널 보여줌
+     */
+    @GetMapping("/list")
+    public ResponseEntity<SuccessResponse<List<ChannelListResponse>>> channelList(){
+        List<ChannelListResponse> response = liveService.getChannelList();
+        return SuccessResponse.onSuccess("전체 채널을 조회했습니다.", HttpStatus.OK, response);
+    }
 
     /**
      * 관리자용 - 방송시작

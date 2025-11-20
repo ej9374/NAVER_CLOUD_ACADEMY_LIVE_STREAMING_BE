@@ -2,6 +2,7 @@ package naver_cloud.live.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import naver_cloud.live.dto.ChannelListResponse;
 import naver_cloud.live.dto.LiveInfoResponse;
 import naver_cloud.live.dto.LiveResponse;
 import naver_cloud.live.entity.Channel;
@@ -22,6 +23,16 @@ public class LiveService {
     private final ThumbnailRepository thumbnailRepository;
     private final VideoRepository videoRepository;
 
+    public List<ChannelListResponse> getChannelList(){
+        List<Channel> channels = channelRepository.findAllOrderByIdDesc();
+        return channels.stream()
+                .map(c -> ChannelListResponse.builder()
+                        .channelId(c.getChannelId())
+                        .channelName(c.getChannelName())
+                        .isActive(c.getIsActive())
+                        .build())
+                .toList();
+    }
     public void liveStart(String channelId) {
         Channel channel = channelRepository.findByChannelId(channelId);
         if (channel == null)
@@ -52,6 +63,8 @@ public class LiveService {
 
     public LiveResponse getLiveVideoUrl(String channelId, QualityType qualityType) {
         String videoUrl = videoRepository.findByChannel_ChannelIdAndQualityType(channelId, qualityType).getUrl();
+
+        // 라이브 스트림은 네이버 클라우드에서 이미 CORS 설정되어 있으므로 직접 반환
         return new LiveResponse(videoUrl);
     }
 }

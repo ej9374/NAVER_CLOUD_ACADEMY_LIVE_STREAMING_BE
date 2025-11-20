@@ -17,7 +17,7 @@ public class Vod {
     @Column
     private String vodId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Channel channel;
 
