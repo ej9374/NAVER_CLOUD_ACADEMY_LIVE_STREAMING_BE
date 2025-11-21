@@ -3,6 +3,7 @@ package naver_cloud.live.controller;
 import lombok.RequiredArgsConstructor;
 import naver_cloud.live.dto.LiveResponse;
 import naver_cloud.live.dto.VodInfoResponse;
+import naver_cloud.live.dto.VodResponse;
 import naver_cloud.live.entity.QualityType;
 import naver_cloud.live.global.SuccessResponse;
 import naver_cloud.live.service.VodService;
@@ -19,6 +20,11 @@ public class VodController {
 
     private final VodService vodService;
 
+    @GetMapping("/list")
+    public ResponseEntity<SuccessResponse<List<VodResponse>>> getVods() {
+        List<VodResponse> response = vodService.getVods();
+        return SuccessResponse.onSuccess("시청할 수 있는 영상을 조회했습니다.", HttpStatus.OK, response);
+    }
     @GetMapping("/info")
     public ResponseEntity<SuccessResponse<List<VodInfoResponse>>> vodInfo() {
         List<VodInfoResponse> response = vodService.getVodInfo();

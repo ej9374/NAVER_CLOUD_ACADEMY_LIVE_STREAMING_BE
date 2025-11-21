@@ -3,9 +3,11 @@ package naver_cloud.live.service;
 import lombok.RequiredArgsConstructor;
 import naver_cloud.live.dto.LiveResponse;
 import naver_cloud.live.dto.VodInfoResponse;
+import naver_cloud.live.dto.VodResponse;
 import naver_cloud.live.entity.QualityType;
 import naver_cloud.live.entity.Vod;
 import naver_cloud.live.entity.VodUrl;
+import naver_cloud.live.global.S3Client;
 import naver_cloud.live.repository.ChannelRepository;
 import naver_cloud.live.repository.VodRepository;
 import naver_cloud.live.repository.VodUrlRepository;
@@ -20,6 +22,11 @@ public class VodService {
     private final VodRepository vodRepository;
     private final VodUrlRepository vodUrlRepository;
     private final ChannelRepository channelRepository;
+    private final S3Client s3Client;
+
+    public List<VodResponse> getVods(){
+        return s3Client.getFileList("vod");
+    }
 
     public List<VodInfoResponse> getVodInfo(){
         List<Vod> videos = vodRepository.findAllOrderByIdDesc();
